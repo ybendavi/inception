@@ -1,0 +1,10 @@
+
+FROM alpine:3.15
+
+RUN apk update && apk upgrade && apk add nginx
+
+COPY nginx.conf /etc/nginx
+
+EXPOSE 9000
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
