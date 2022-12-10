@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+        nginx:
+                build: ./requirements/nginx/.
+                image: nginx
+                container_name: nginx
+                restart: always
+                volumes: 
+                        - "/home/ybendavi/data/html:/var/www/html"
+                ports:
+                        - "443:443"
+                networks:
+                        - "network"
+        mysql:
+                build: requirements/mariadb/.
+                container_name: mariadb
+                image: mariadb
+
+                env_file: .env
+
+                restart: always
+
+                volumes: 
+                        - "/home/ybendavi/data/mysql:/var/lib/mysql"
+                networks: 
+                        - "network"
+
+
+        wordpress:
+
+                build: requirements/wordpress/.
+                container_name: wordpress
+                image: wordpress
+
+                env_file: .env
+
+                restart: always
+
+                volumes: 
+                        - "/home/ybendavi/data/html:/var/www/html"
+
+                depends_on: 
+                        - mysql
+                networks: 
+                        - "network"
+
+networks:
+        network:
+                driver: bridge
