@@ -2,11 +2,11 @@
 
 define( 'DB_NAME', 'wordpress' );
 
-define( 'DB_USER', 'wordpress' );
+define( 'DB_USER', 'ybendavi' );
 
 define( 'DB_PASSWORD', 'nani' );
 
-define( 'DB_HOST', 'mariadb' );
+define( 'DB_HOST', 'mysql' );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
