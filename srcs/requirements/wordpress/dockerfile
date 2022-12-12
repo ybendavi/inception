@@ -7,9 +7,9 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 		adduser -S nginx \ 
 		&& addgroup -S nginx
 
-COPY wp-config.php  /var/www/
+COPY conf/wp-config.php  /var/www/
 
-COPY www.conf /etc/php7/php-fpm.d
+COPY conf/www.conf /etc/php7/php-fpm.d
 
 COPY tools/wordpress.sh /
 

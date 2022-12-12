@@ -6,14 +6,10 @@ RUN apk update && apk upgrade && apk add nginx openssl --no-cache
 
 RUN mkdir /etc/nginx/ssl
 
-COPY ybendavi.42.fr.conf etc/nginx/http.d/default.conf
-
-COPY index.html /var/www/
+COPY conf/ybendavi.42.fr.conf etc/nginx/http.d/default.conf
 
 RUN openssl req -x509 -outform PEM -out etc/nginx/ssl/ybendavi.42.fr.crt -newkey rsa:4096 -nodes -keyout etc/nginx/ssl/ybendavi.42.fr.key -subj "/C=FR/ST=Ile de France/L=Paris/O=42/OU=ybendavi/CN=ybendavi.42.fr"
 
 EXPOSE 443
-
-RUN ifconfig eth0 | awk '/inet / {print $2}' | cut -d ':' -f2 | tr -d "\n" >> /etc/hosts && echo "    ybendavi.42.fr" >> /etc/hosts && echo "ybendavi.42.fr" >> /etc/hostname
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
