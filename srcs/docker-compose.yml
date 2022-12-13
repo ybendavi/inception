@@ -7,7 +7,7 @@ services:
                 container_name: nginx
                 restart: always
                 volumes: 
-                        - "/home/ybendavi/data/html:/var/www/html"
+                        - "html:/var/www/html"
                 ports:
                         - "443:443"
                 networks:
@@ -24,7 +24,7 @@ services:
                 restart: always
 
                 volumes: 
-                        - "/home/ybendavi/data/mysql:/var/lib/mysql"
+                        - "mysql:/var/lib/mysql"
                 networks: 
                         - "network"
                 ports:
@@ -42,7 +42,7 @@ services:
                 restart: always
 
                 volumes: 
-                        - "/home/ybendavi/data/html:/var/www/html"
+                        - "html:/var/www/html"
 
                 depends_on: 
                         - mysql
@@ -50,6 +50,21 @@ services:
                         - "network"
                 ports:
                         - "9000:9000"
+
+volumes:
+    html:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/ybendavi/data/html
+
+    mysql:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/ybendavi/data/mysql       
 
 networks:
         network:
