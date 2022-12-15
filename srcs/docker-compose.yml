@@ -27,8 +27,8 @@ services:
                         - "mysql:/var/lib/mysql"
                 networks: 
                         - "network"
-                ports:
-                        - "3306:3306"
+                healthcheck:
+                    test: "mariadb --password=$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
 
 
         wordpress:
@@ -45,11 +45,10 @@ services:
                         - "html:/var/www/html"
 
                 depends_on: 
-                        - mysql
+                  mysql:
+                    condition: service_healthy
                 networks: 
                         - "network"
-                ports:
-                        - "9000:9000"
 
 volumes:
     html:
